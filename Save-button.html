@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../base-start.css" />
+    <title>Save button</title>
+    <style>
+      /* Your styles here */
+      button{
+        position: relative;
+        display: flex;
+        align-items: center;
+        padding: var(--space-3) var(--space-5);
+        border-radius: var(--radius);
+        color: var(--color-white);
+        background-image: linear-gradient(to bottom, var(--color-blue-500) , var(--color-blue-400));
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        font-size: var(--text-lg);
+        cursor: pointer;
+        overflow: visible;
+        box-shadow: var(--shadow);
+      }
+
+      button:focus{
+        box-shadow: var(--shadow-focus);
+      }
+
+      button.active{
+        opacity: var(--opacity-50);
+        cursor: not-allowed;
+      }
+
+      button.active .text{
+        margin-right: var(--space-8) ;
+
+      }
+
+      button.active .loader{
+        opacity: var(--opacity-100);
+        animation: spin var(--transition-speed-fast) linear infinite;
+      }
+
+      .text{
+        transition: margin-right var(--transition-speed-fast) var(--transition-curve-bounce);
+      }
+
+      .loader{
+        position: absolute;
+        right: var(--space-5);
+        width: var(--space-4);
+        height: var(--space-4);
+        margin-left: var(--space-3);
+        border-left: 2px solid var(--color-white);
+        border-top: 2px solid var(--color-white);
+        border-radius: var(--rounded);
+        opacity: 0;
+      }
+
+      @keyframes spin{
+        to{
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <!-- Your HTML here -->
+      <button>
+        <div class="text">Save</div>
+        <div class="loader"></div>
+      </button>
+    </div>
+    <!-- Your JavaScript here -->  
+    <script>
+      const button = document.querySelector('button');
+
+      const handleClick =  (event) => {
+        const button = event.currentTarget;
+        const text = button.querySelector('.text');
+        text.innerText = 'Saving';
+        button.classList.add('active');
+        button.disabled = true;
+        setTimeout(() => {
+          button.classList.remove('active');
+          button.disabled = false;
+          text.innerText = 'Save';
+          button.focus();
+        }, 2000);
+      };
+
+      button.addEventListener('click', handleClick);
+    </script>
+  </body>
+</html>
+
+

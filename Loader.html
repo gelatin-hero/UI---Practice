@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../base-start.css">
+  <style>
+    :root{
+      --container-width:300px;
+      --highlight-width:100px;
+    }
+    .loader{
+      width: var(--container-width);
+      padding: var(--space-4);
+      border: var(--border);
+      border-radius: var(--radius);
+      background-color: var(--color-white);
+      box-shadow: var(--shadow);
+      margin-bottom: var(--space-4);
+    }
+
+    .loader:last-child{
+      margin-bottom: 0;
+    }
+
+    .bar{
+      position: relative;
+      width: 80%;
+      height: var(--space-2);
+      background-color: var(--color-gray-200);
+      border-radius: var(--radius);
+      margin-bottom: var(--space-2);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+
+    .bar:after{
+      position: absolute;
+      content: '';
+      display: block;
+      border-radius: var(--radius);
+      background-image: linear-gradient(to right,  rgba(255,255,255,0),rgba(255,255,255,var(--opacity-50)), rgba(255,255,255,0));
+      width: var(--highlight-width);
+      height: 100%;
+      animation: slide-over var(--transition-speed) var(--transition-curve) infinite;
+    }
+
+
+    .bar:last-child{
+      margin-bottom: 0;
+    }
+
+    @keyframes slide-over {
+      from{
+        left: calc(var(--highlight-width)*(-1));
+      }
+      to {
+        left: 100%;
+      }
+    }
+
+
+  </style>
+  <title>Skeleton Loader</title>
+</head>
+<body>
+  <div>
+    <div class="loader">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+    <div class="loader">
+      <div class="bar"></div>
+      <div class="bar"></div>
+      <div class="bar"></div>
+    </div>
+  </div>
+  <script>
+    // Grab all the bars and assign them to a variable
+    const bars = document.querySelectorAll('.bar');
+    // Set the range for the bar width in percentage
+    const max = 100;
+    const min = 40;
+    // Select every instance of class bar
+    bars.forEach(bar =>{
+      //Adding a random width to each bar
+      bar.style.width= `${Math.floor(Math.random() * (max - min) + min)}%`;
+    })
+  </script>
+</body>
+</html>
