@@ -5,8 +5,114 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../base-start.css" />
     <title>Toast</title>
+    <style>
+
+        :root{
+            --width-notification:350px;
+        }
+
+        .notification {
+            position: fixed;
+            display: flex;
+            width: var(--width-notification);
+            top: var(--space-4);
+            right: var(--space-4);;
+            background-color: var(--color-white);
+            border: var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .content {
+            padding: var(--space-4);
+        }
+
+        .title {
+            font-size: var(--text-md);
+        }
+        
+        .description {
+            font-size: var(--text-sm);
+            color: var(--color-gray-500);
+        }
+
+        .close {
+            padding: var(--space-4);
+            font-size: var(--text-md);
+            margin-left: auto;
+            color: var(--color-gray-500);
+            background-color: transparent;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            border: none;
+            border-left: 1px solid var(--color-border);
+            cursor: pointer;
+        }
+
+        .close:hover {
+            background-color: var(--color-gray-100);
+        }
+
+        .close:focus, .close:active {
+            outline: none;
+            box-shadow: var(--shadow-focus);
+            color: var(--color-gray-900);
+        }
+
+        .add{
+            position: fixed;
+            bottom: var(--space-4);
+            left: var(--space-4);
+            padding: var(--space-4);
+            background-color: var(--color-blue-500);
+            font-size: var(--text-md);
+            color: var(--color-white);
+            border: 2px solid var(--color-blue-700);
+            border-radius: var(--rounded);
+        
+        }
+
+    </style>
 </head>
 <body>
+    <div>
+        <button class="add"> Add notification +</button>
+    </div>
     
+    <!-- JS starts here -->
+    <script>
+        const addButton = document.querySelector('.add');
+        const notificationPosition = document.body.querySelector('div');
+        const notificationTexts = [
+         "Settings saved successfully. Your preferences have been updated.",
+         "Oops! We encountered an issue. Unable to fetch data. Please try again later.",
+         "Your session will expire in 1 minute. Click here to renew and continue your work.",
+         "Are you sure you want to delete this item? [Undo] This action cannot be undone.",
+         "You are currently offline. Changes will be synced when the connection is restored.",
+         "Congratulations! Your account has been upgraded to premium.",
+         "New feature added: Explore our latest functionality and enhancements.",
+         "Reminder: Your project deadline is approaching. Finish soon!"
+        ];
+
+
+
+        addButton.addEventListener('click', () => {
+            // 1. Create notification
+            const notification = document.createElement('div');
+            notification.classList.add('notification');
+            const randomMessage = notificationTexts[
+                Math.floor(Math.random() * notificationTexts.length)
+            ];
+            // 2. Add content to the notification
+            notification.innerHTML = `
+            <div class="content">
+                <h3 class="title">Title</h3>
+                <p class="description">${randomMessage}</p>
+            </div>
+            <button class="close">Close</button>
+            `
+            // 3. Show the notification
+            notificationPosition.prepend(notification);
+        })
+    </script>
 </body>
 </html>
